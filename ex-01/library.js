@@ -12,9 +12,9 @@ function addFavoriteBook(bookName) {
 }
 
 function printFavoriteBooks() {
-  console.log("Printing Fav Books", favoriteBooksArr.length);
-  for (let i = 0; i < favoriteBooksArr.length; i++) {
-    console.log(favoriteBooksArr[i]);
+  console.log(`Printing Fav Books: ${favoriteBooksArr.length}`);
+  for (let bookName of favoriteBooksArr) {
+    console.log(bookName);
   }
 }
 
