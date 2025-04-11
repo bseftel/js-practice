@@ -1,26 +1,51 @@
-const favoriteBooksArr = [];
-const triggerWord = "Great";
+class BookShelf {
+  constructor() {
+    this.bookShelfArray = [];
+  }
 
-function addFavoriteBook(bookName) {
-  //console.log(bookName);
-  if (!bookName.includes(triggerWord)) {
-    console.log("Add To Favorite Books");
-    favoriteBooksArr.push(bookName);
-  } else {
-    console.log("Will not be added to favorites");
+  addFavoriteBook(bookName) {
+    if (!bookName.includes("Great")) {
+      this.bookShelfArray.push(bookName);
+    } else {
+      console.log("Will not be added to favorites");
+    }
+  }
+
+  printFavoriteBooks() {
+    console.log(`Printing Fav Books: ${String(this.bookShelfArray.length)}`);
+    for (let bookName of this.bookShelfArray) {
+      console.log(bookName);
+    }
   }
 }
 
-function printFavoriteBooks() {
-  console.log(`Printing Fav Books: ${favoriteBooksArr.length}`);
-  for (let bookName of favoriteBooksArr) {
-    console.log(bookName);
-  }
+function loadBooks(bookshelf) {
+  fakeAjax(BOOK_API, function onBooks(bookNames) {
+    for (let bookName of bookNames) {
+      bookshelf.addFavoriteBook(bookName);
+    }
+    bookshelf.printFavoriteBooks();
+  });
 }
 
-addFavoriteBook("A Wizards Tale");
-addFavoriteBook("A Wizards Tale II");
-addFavoriteBook("A Wizards Tale III");
-addFavoriteBook("A Great Wizards Tale");
+//
+var BOOK_API = "https://some.url/api";
+var myBooks = new BookShelf();
+loadBooks(myBooks);
 
-printFavoriteBooks();
+//*********************************************************************//
+
+// ***********************
+
+// NOTE: don't modify this function at all
+function fakeAjax(url, cb) {
+  setTimeout(function fakeLoadingDelay() {
+    cb([
+      "A Song of Ice and Fire",
+      "The Great Gatsby",
+      "Crime & Punishment",
+      "Great Expectations",
+      "You Don't Know JS",
+    ]);
+  }, 500);
+}
